@@ -1,0 +1,75 @@
+# ── Large Data Files (NEVER commit these) ─────────────────────
+data/raw_kaggle/
+data/full_dataset/
+data/OASIS/
+data/ADNI/
+data/sample_images/
+
+# Medical image formats
+*.nii
+*.nii.gz
+*.dcm
+*.mha
+*.nrrd
+
+# ── Trained Model Weights (share via Hugging Face Hub) ────────
+models/*.pth
+models/*.pt
+models/*.onnx
+models/*.bin
+*.h5
+*.pkl
+
+# ── Python Environment ────────────────────────────────────────
+medscan_env/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Environment Variables (NEVER commit secrets) ──────────────
+.env
+.env.local
+.env.production
+*.key
+*.pem
+
+# ── Jupyter Notebooks ─────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── MLflow & DVC ──────────────────────────────────────────────
+mlruns/
+.dvc/tmp/
+.dvc/cache/
+
+# ── IDE / Editor ──────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── OS Files ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Logs & Temporary Files ────────────────────────────────────
+*.log
+logs/
+tmp/
+temp/
+
+# ── Docker ────────────────────────────────────────────────────
+# (docker-compose.yml and Dockerfiles are intentionally tracked)
+
+# ── Keep empty folders ────────────────────────────────────────
+!models/.gitkeep
+!data/.gitkeep
+
+Md files/

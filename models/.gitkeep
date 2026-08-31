@@ -1,0 +1,3 @@
+# Model weights are stored here but NOT committed to Git.
+# Download pre-trained weights from Hugging Face Hub (link coming soon)
+# and place the .pth files in this directory.

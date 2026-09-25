@@ -9,7 +9,8 @@
 </p>
 
 <p align="center">
-  <b>An AI-powered clinical decision-support tool for Alzheimer's disease detection from brain MRI scans.</b>
+  <b>An AI-powered clinical decision-support tool for Alzheimer's disease detection from brain MRI scans.</b><br><br>
+  <a href="https://med-scan-alzheimer-s.vercel.app/"><b>🚀 VIEW LIVE DEMO</b></a>
 </p>
 
 ---
@@ -35,6 +36,14 @@ MedScan utilizes a high-performance **Hybrid Node.js + Python Architecture**:
 1. **Frontend (React + Vite)**: A premium, dynamic "Light Medical" themed web application for uploading MRIs and visualizing diagnostic results.
 2. **Backend API (Node.js/Express)**: A fast, lightweight server that handles file routing, uploads via Multer, and API communication (`http://localhost:4000`).
 3. **Inference Worker (Python/PyTorch)**: A spawned background process (`inference_worker.py`) that loads the PyTorch CNN checkpoint, performs tensor operations, generates Grad-CAM heatmaps, and pipelines the data back to Node.js.
+
+---
+
+## 🌐 Live Cloud Deployment
+
+MedScan is currently deployed and accessible online:
+- **Frontend (UI)**: Hosted on [Vercel](https://med-scan-alzheimer-s.vercel.app/) for ultra-fast global edge delivery.
+- **Backend (API + PyTorch)**: Dockerized and hosted on [Render](https://render.com) to handle the heavy GPU/CPU tensor operations required by the CNN. 
 
 ---
 

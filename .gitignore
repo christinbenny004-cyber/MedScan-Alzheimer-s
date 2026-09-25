@@ -1,9 +1,5 @@
 # ── Large Data Files (NEVER commit these) ─────────────────────
-data/raw_kaggle/
-data/full_dataset/
-data/OASIS/
-data/ADNI/
-data/sample_images/
+data/
 
 # Medical image formats
 *.nii
@@ -73,3 +69,15 @@ temp/
 !data/.gitkeep
 
 Md files/
+
+# ── Frontend (React / Vite) ───────────────────────────────
+frontend/node_modules/
+frontend/dist/
+
+# ── Backend (Flask) ───────────────────────────────────────
+backend/uploads/
+backend/__pycache__/
+
+# ── Backend (Node.js) ─────────────────────────────────────
+node_backend/node_modules/
+node_backend/uploads/

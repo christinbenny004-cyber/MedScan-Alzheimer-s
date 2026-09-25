@@ -1,5 +1,5 @@
-# Use Node.js as the base image
-FROM node:18-bullseye
+# Use Node.js as the base image (Bookworm prevents apt-get exit code 100 errors)
+FROM node:20-bookworm
 
 # Install Python and pip (required for our PyTorch worker)
 RUN apt-get update && apt-get install -y \

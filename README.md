@@ -1,8 +1,9 @@
 # 🧠 MedScan — Alzheimer's MRI Detection System
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-In%20Development-yellow?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Status-Phase%201%20Complete-brightgreen?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/React-18.0%2B-blue?style=for-the-badge&logo=react&logoColor=white" />
+  <img src="https://img.shields.io/badge/Node.js-18.0%2B-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
   <img src="https://img.shields.io/badge/PyTorch-2.3.0-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" />
 </p>
@@ -15,64 +16,89 @@
 
 ## 📌 What Is MedScan?
 
-MedScan is a deep learning application designed to assist **neurologists, radiologists, and general physicians** in the early detection and progression monitoring of Alzheimer's disease through brain MRI analysis.
+MedScan is a deep learning application designed to assist **neurologists, radiologists, and general physicians** in the early detection of Alzheimer's disease through brain MRI analysis.
 
 The system analyses a brain MRI scan and returns:
-- A **4-class Alzheimer's stage classification** (Cognitively Normal / MCI / Mild / Moderate–Severe)
-- A **Grad-CAM heatmap** highlighting the brain regions that influenced the model's decision
-- A **severity score** with uncertainty quantification
-- A downloadable **clinical PDF report**
+- A **Binary / 4-class Alzheimer's stage classification** powered by a fine-tuned ResNet34 CNN.
+- A **Grad-CAM heatmap** highlighting the brain regions that influenced the model's decision.
+- **Explainable AI (XAI)** featuring clinically simplified anatomical descriptions (e.g., "Central Fluid Spaces") to improve patient comprehension.
+- A modern, glassmorphic **React Diagnostic Studio** interface.
 
 > ⚠️ **Disclaimer:** MedScan is a **decision-support tool**, not a replacement for clinical judgement. All outputs must be reviewed by a qualified medical professional before clinical use.
 
 ---
 
-## 🧬 Classification Stages
+## 🏗️ Architecture
 
-| Stage | Clinical Meaning | CDR Score |
-|-------|-----------------|-----------|
-| **Cognitively Normal** | No signs of impairment | CDR 0 |
-| **Mild Cognitive Impairment (MCI)** | Early warning; independent living intact | CDR 0.5 |
-| **Mild Dementia** | Memory and functional impairment beginning | CDR 1 |
-| **Moderate / Severe Dementia** | Significant cognitive decline | CDR 2–3 |
+MedScan utilizes a high-performance **Hybrid Node.js + Python Architecture**:
+
+1. **Frontend (React + Vite)**: A premium, dynamic "Light Medical" themed web application for uploading MRIs and visualizing diagnostic results.
+2. **Backend API (Node.js/Express)**: A fast, lightweight server that handles file routing, uploads via Multer, and API communication (`http://localhost:4000`).
+3. **Inference Worker (Python/PyTorch)**: A spawned background process (`inference_worker.py`) that loads the PyTorch CNN checkpoint, performs tensor operations, generates Grad-CAM heatmaps, and pipelines the data back to Node.js.
 
 ---
 
-## ✅ Work Done So Far
+## 🚀 How to Run Locally
 
-### Architecture Comparison Study
+To spin up the full application on your local machine, follow these steps:
 
-A **comparison study across multiple pretrained CNN backbones** was conducted on real preprocessed Alzheimer's MRI data to make an evidence-based model selection before committing to a full training run.
+### 1. Install Dependencies
+```bash
+# Frontend
+cd frontend
+npm install
 
-📓 **Notebook:** [`Alzheimer's Classification-Comparision.ipynb`](Alzheimer's%20Classification-Comparision.ipynb)
+# Backend
+cd ../node_backend
+npm install
 
-The study evaluated candidate architectures under identical conditions (same dataset, same preprocessing, same loss function) and recorded validation accuracy, macro F1, and confusion matrices to identify the best accuracy-per-parameter trade-off for this dataset.
+# Python Core
+cd ../backend
+pip install -r requirements.txt
+```
+
+### 2. Start the Servers
+You need two terminal windows open:
+
+**Terminal 1 (Node.js Backend):**
+```bash
+cd node_backend
+node server.js
+# Runs on http://127.0.0.1:4000
+```
+
+**Terminal 2 (React Frontend):**
+```bash
+cd frontend
+npm run dev
+# Runs on http://localhost:5173
+```
+Visit `http://localhost:5173` in your browser to access the Diagnostic Studio!
+
+---
+
+## ✅ Phase 1: Work Done So Far
+
+- **CNN Backbone Selection**: Compared ResNet18, EfficientNet-B5, and DenseNet121 before settling on a carefully fine-tuned **ResNet34**.
+- **Subject-Disjoint Splitting**: Implemented strict clinical data-leakage prevention by splitting validation/test data at the *patient* level, not the slice level.
+- **Backend Migration**: Upgraded from a synchronous Flask server to a fast Node.js Express server to resolve network payload bottlenecks.
+- **Clinical XAI**: Re-engineered the Grad-CAM heuristic mapping to translate dense medical jargon into accessible summaries for non-experts.
+
+### 📓 Research Notebooks
+The `/notebooks` directory contains the heavily documented Jupyter Notebooks used to train the models (perfect for adding to your ML portfolio):
+- `01_Data_Exploration_and_Extraction_FIXED.ipynb`: Exploratory Data Analysis.
+- `02_2D_CNN_Preprocessing_FIXED (1).ipynb`: Slice extraction and normalization.
+- `04_Kaggle_Comparison_Training.ipynb`: Initial backbone architecture bake-off.
+- `Model Architecture.ipynb`: Final subject-level binary classification training pipeline for the ResNet34 model.
 
 ---
 
 ## 📦 Dataset
 
-
 | Dataset | Description | Access |
 |---------|-------------|--------|
-| **Augmented Alzheimer's MRI Dataset** | Preprocessed & augmented 4-class MRI slices | [Free](https://www.kaggle.com/datasets/uraninjo/augmented-alzheimer-mri-dataset) |
+| **Augmented Alzheimer's MRI Dataset** | Preprocessed & augmented MRI slices | [Free](https://www.kaggle.com/datasets/uraninjo/augmented-alzheimer-mri-dataset) |
 | **OASIS-1 / OASIS-2** | Longitudinal MRI; 416 subjects | [Free, registration required](https://www.oasis-brains.org) |
-| **ADNI** | Gold-standard MRI + PET + cognitive scores | [Institutional approval required](https://adni.loni.usc.edu) |
-
----
-
-## 📚 References
-
-| Paper / Resource | Link |
-|-----------------|------|
-| Grad-CAM (Selvaraju et al., 2017) | [arXiv:1610.02391](https://arxiv.org/abs/1610.02391) |
-| EfficientNet (Tan & Le, 2019) | [arXiv:1905.11946](https://arxiv.org/abs/1905.11946) |
-| Swin Transformer (Liu et al., 2021) | [arXiv:2103.14030](https://arxiv.org/abs/2103.14030) |
-| Focal Loss (Lin et al., 2017) | [arXiv:1708.02002](https://arxiv.org/abs/1708.02002) |
-| MTA Scale (Scheltens et al., 1992) | [PubMed](https://pubmed.ncbi.nlm.nih.gov/1419003/) |
-| RadImageNet | [arXiv:2204.06645](https://arxiv.org/abs/2204.06645) |
-| OASIS Dataset | [oasis-brains.org](https://www.oasis-brains.org) |
-| ADNI Dataset | [adni.loni.usc.edu](https://adni.loni.usc.edu) |
 
 ---
 

@@ -8,10 +8,8 @@ const fs = require('fs');
 const app = express();
 const port = 4000;
 
-// Enable CORS for React dev server
-app.use(cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173']
-}));
+// Enable CORS for all origins in production/prototype
+app.use(cors());
 
 // Configure Multer for file uploads
 const uploadDir = path.join(__dirname, 'uploads');
@@ -35,7 +33,7 @@ const upload = multer({
 });
 
 // Paths to Python and Inference Worker
-const pythonExecutable = 'python'; // Or 'python3' depending on environment
+const pythonExecutable = process.env.PYTHON_EXECUTABLE || 'python';
 const workerScript = path.join(__dirname, '..', 'backend', 'inference_worker.py');
 
 // --- Health Check Endpoint ---

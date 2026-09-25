@@ -3,7 +3,7 @@
  * Handles all communication with the Flask backend.
  */
 
-const API_BASE_URL = 'http://127.0.0.1:4000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:4000';
 
 /**
  * Check if the backend is running and the model is loaded.
